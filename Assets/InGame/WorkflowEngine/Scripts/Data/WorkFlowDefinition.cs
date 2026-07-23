@@ -21,5 +21,15 @@ namespace WorkFlowEngine.Runtime.Data {
     public class WorkFlowDefinition : ScriptableObject,IWorkFlowDefinition {
         [SerializeField] List<WorkflowStepConfig> workflowStates;
         public IReadOnlyList<WorkflowStepConfig> States => workflowStates;
+
+        public int GetMaxTries(string className) {
+            foreach (var workflowStepConfig in workflowStates) {
+                if (workflowStepConfig.stateClassName == className) {
+                    return workflowStepConfig.maxRetries;
+                }
+            }
+            
+            return 0;
+        }
     }
 }

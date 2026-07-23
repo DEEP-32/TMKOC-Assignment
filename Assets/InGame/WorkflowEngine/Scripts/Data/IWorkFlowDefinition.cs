@@ -4,5 +4,7 @@ using WorkFlowEngine.Runtime.Data;
 namespace WorkflowEngine.Runtime.Data {
     public interface IWorkFlowDefinition {
         IReadOnlyList<WorkflowStepConfig> States { get; }
+
+        int GetMaxTries(string className);
     }
 }

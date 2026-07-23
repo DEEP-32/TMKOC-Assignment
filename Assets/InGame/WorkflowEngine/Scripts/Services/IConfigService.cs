@@ -6,8 +6,6 @@ namespace WorkflowEngine.Runtime.Services {
 
         // The payload we care about upon success
         public string DownloadedFilePath;
-        public string RawJsonData;
-
         // The error details if it fails
         public string ErrorMessage;
     }
