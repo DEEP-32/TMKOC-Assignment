@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using WorkflowEngine.Runtime.Core;
 using WorkFlowEngine.Runtime.Data;
 using WorkflowEngine.Runtime.Factory;
@@ -12,6 +12,7 @@ using WorkflowEngine.Runtime.States;
 namespace WorkflowEngine.Runtime {
     public class WorkflowBootstrapper : MonoBehaviour {
         [SerializeField] WorkFlowDefinition workflowDefinitionAsset;
+        [SerializeField] Button startButton;
         IWorkFlowEngine workFlowEngine;
 
         void Awake() {
@@ -51,12 +52,18 @@ namespace WorkflowEngine.Runtime {
                 return;
             }
 
-            IWorkFlowEngine engine = new Core.WorkFlowEngine(runtimeStates.ToList());
+            workFlowEngine = new Core.WorkFlowEngine(runtimeStates.ToList());
             
+            startButton.onClick.AddListener(StartWorkflow);
+        }
+
+        void StartWorkflow() {
+            workFlowEngine.StartWorkflow();
+        }
+
+        void OnDestroy() {
+            workFlowEngine = null;
             
-
-
-
         }
     }
 }
