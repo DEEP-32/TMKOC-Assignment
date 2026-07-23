@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158ff03e1dfd47ada7b9cdd91e287795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: WorkflowEngine.Runtime::WorkflowEngine.Runtime.WorkflowBootstrapper
-  workflowDefinition: {fileID: 11400000, guid: 1b11cf92f090f724a85ab24fba031e97, type: 2}
+  workflowDefinitionAsset: {fileID: 11400000, guid: 1b11cf92f090f724a85ab24fba031e97, type: 2}
 --- !u!4 &274941961
 Transform:
   m_ObjectHideFlags: 0
