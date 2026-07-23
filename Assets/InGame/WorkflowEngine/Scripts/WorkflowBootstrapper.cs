@@ -53,6 +53,8 @@ namespace WorkflowEngine.Runtime {
             }
 
             workFlowEngine = new Core.WorkFlowEngine(runtimeStates.ToList());
+            workFlowEngine.onWorkflowFailure += errorMsg => Debug.LogError($"[WorkflowBootstrapper] Workflow failed: {errorMsg}");
+            workFlowEngine.onCompleted += () => Debug.Log("[WorkflowBootstrapper] Workflow completed!");
             
             startButton.onClick.AddListener(StartWorkflow);
         }
@@ -62,8 +64,8 @@ namespace WorkflowEngine.Runtime {
         }
 
         void OnDestroy() {
+            workFlowEngine.FreeResources();
             workFlowEngine = null;
-            
         }
     }
 }

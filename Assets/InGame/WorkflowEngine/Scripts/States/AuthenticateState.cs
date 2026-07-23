@@ -38,6 +38,7 @@ namespace WorkflowEngine.Runtime.States {
                 if (result.IsSuccessful) 
                 {
                     loginContext.SessionToken = result.SessionToken;
+                    Debug.Log($"[Workflow] [state : {nameof(AuthenticateState)}] successful : Session Token: {result.SessionToken}");
                     OnSuccess?.Invoke();
                 } 
                 else 

@@ -17,3 +17,5 @@ MonoBehaviour:
     maxRetries: 2
   - stateClassName: DownloadConfigState
     maxRetries: 2
+  - stateClassName: ValidateConfigState
+    maxRetries: 1

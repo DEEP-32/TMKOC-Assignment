@@ -1,5 +1,7 @@
-﻿namespace WorkflowEngine.Runtime.Core {
-    public class WorkflowContext : ILoginContext, IDownloadContext {
+﻿using WorkflowEngine.Runtime.Data;
+
+namespace WorkflowEngine.Runtime.Core {
+    public class WorkflowContext : ILoginContext, IDownloadContext,IValidateContext {
         public string LoginEmail { get; set; }
 
         public string LoginPassword { get; set; }
@@ -7,6 +9,8 @@
         public string SessionToken { get; set; }
 
         public string DownloadedConfigPath { get; set; }
+        
+        public GameData GameData { get; set; }
     }
 
     public interface ILoginContext {
@@ -22,5 +26,9 @@
         string SessionToken { get; } // Read-only here!
 
         string DownloadedConfigPath { get; set; }
+    }
+
+    public interface IValidateContext {
+        GameData GameData { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace WorkflowEngine.Runtime.Factory {
             stateCreators = new Dictionary<string, Func<IWorkFlowState>> {
                 { nameof(AuthenticateState), () => new AuthenticateState(authService, sharedContext) },
 
-                { nameof(DownloadConfigState), () => new DownloadConfigState(configService, sharedContext) }
+                { nameof(DownloadConfigState), () => new DownloadConfigState(configService, sharedContext) },
 
                 // You will uncomment and add these as you create the remaining classes:
-                // { nameof(ValidateConfigState), () => new ValidateConfigState(sharedContext) },
+                {nameof(ValidateConfigState), () => new ValidateConfigState((IDownloadContext)sharedContext,(IValidateContext)sharedContext) },
                 // { nameof(InitializeServicesState), () => new InitializeServicesState() },
                 // { nameof(ReadyState), () => new ReadyState() }
             };

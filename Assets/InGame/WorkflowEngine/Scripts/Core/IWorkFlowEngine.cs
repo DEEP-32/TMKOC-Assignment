@@ -18,7 +18,8 @@ namespace WorkflowEngine.Runtime.Core {
         
         IWorkFlowState CurrentState { get; }
         
-        
         void StartWorkflow();
+        
+        void FreeResources();
     }
 }

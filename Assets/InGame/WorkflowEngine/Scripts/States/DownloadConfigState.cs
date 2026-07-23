@@ -35,6 +35,7 @@ namespace WorkflowEngine.Runtime.States {
 
                 if (result.IsSuccessful) {
                     downloadContext.DownloadedConfigPath = result.DownloadedFilePath;
+                    Debug.Log($"[Workflow] [state : {nameof(DownloadConfigState)}] successful : download file path : {result.DownloadedFilePath}");
                     OnSuccess?.Invoke();
                 }
                 else {

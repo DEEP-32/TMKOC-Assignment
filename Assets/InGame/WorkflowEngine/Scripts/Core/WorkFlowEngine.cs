@@ -32,7 +32,22 @@ namespace WorkflowEngine.Runtime.Core {
         public void StartWorkflow() {
             EnterNewState();
         }
+
+        public void FreeResources() {
+            if (CurrentState != null) {
+                CurrentState.OnSuccess -= HandleStateSuccess;
+                CurrentState.OnFailure -= HandleStateFailure;
         
+                // Let the state clean up its own internal resources (e.g., stop web requests)
+                CurrentState.OnExit(); 
+            }
+
+            // 2. Nuke all external listeners attached to this engine (What you already did!)
+            onWorkflowFailure = null;
+            onCompleted = null;
+            onStateChanged = null;
+        }
+
         void EnterState(IWorkFlowState currentState) {
             currentState.OnEnter();
             onStateChanged?.Invoke(currentState);
@@ -68,6 +83,9 @@ namespace WorkflowEngine.Runtime.Core {
         }
         
         void HandleStateFailure(string errorMsg) {
+            
+            Debug.Log($"[{nameof(WorkFlowEngine)}] state failed: {CurrentState.GetType().Name} with error: {errorMsg} tries left: {states[currentStateIndex].Tries - currentRetryCount}");
+            
             CurrentState.OnSuccess -= HandleStateSuccess;
             CurrentState.OnFailure -= HandleStateFailure;
 

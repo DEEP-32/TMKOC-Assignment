@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: WorkflowEngine.Runtime::WorkflowEngine.Runtime.WorkflowBootstrapper
   workflowDefinitionAsset: {fileID: 11400000, guid: 1b11cf92f090f724a85ab24fba031e97, type: 2}
+  startButton: {fileID: 562807917}
 --- !u!4 &274941961
 Transform:
   m_ObjectHideFlags: 0
