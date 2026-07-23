@@ -19,3 +19,5 @@ MonoBehaviour:
     maxRetries: 2
   - stateClassName: ValidateConfigState
     maxRetries: 1
+  - stateClassName: InitializeGameServices
+    maxRetries: 0

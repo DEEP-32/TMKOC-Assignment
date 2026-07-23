@@ -10,8 +10,18 @@ namespace WorkflowEngine.Runtime.Core {
         public event Action onCompleted;
         public event Action<string> onWorkflowFailure;
         public IReadOnlyList<WorkFlowStateRuntimeData> States => states;
-        
-        public IWorkFlowState CurrentState => states[currentStateIndex].State;
+
+        public IWorkFlowState CurrentState {
+            get {
+
+                if (currentStateIndex >= 0 && currentStateIndex < states.Count) {
+                    return states[currentStateIndex].State;
+                }
+
+                return null;
+            }
+                
+        }
         public WorkFlowStateRuntimeData CurrentStateRuntimeData => states[currentStateIndex];
         
         List<WorkFlowStateRuntimeData> states;
@@ -39,7 +49,7 @@ namespace WorkflowEngine.Runtime.Core {
                 CurrentState.OnFailure -= HandleStateFailure;
         
                 // Let the state clean up its own internal resources (e.g., stop web requests)
-                CurrentState.OnExit(); 
+                CurrentState?.OnExit(); 
             }
 
             // 2. Nuke all external listeners attached to this engine (What you already did!)
@@ -73,6 +83,9 @@ namespace WorkflowEngine.Runtime.Core {
         void HandleStateSuccess() {
             CurrentState.OnSuccess -= HandleStateSuccess;
             CurrentState.OnFailure -= HandleStateFailure;
+            
+            CurrentState.OnExit();
+            
             currentStateIndex++;
             if (currentStateIndex < states.Count) {
                 EnterState(CurrentState);
@@ -88,6 +101,8 @@ namespace WorkflowEngine.Runtime.Core {
             
             CurrentState.OnSuccess -= HandleStateSuccess;
             CurrentState.OnFailure -= HandleStateFailure;
+            
+            CurrentState.OnExit();
 
             int maxTries = states[currentStateIndex].Tries;
 

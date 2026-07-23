@@ -18,11 +18,11 @@ namespace WorkflowEngine.Runtime.States {
         }
         
         public void OnEnter() {
-            Debug.Log("[Workflow] Entering Authentication State...");
+            Debug.Log($"[Workflow] Entering {nameof(AuthenticateState)}...");
 
         }
         public void OnExit() {
-            Debug.Log("[Workflow] Exiting Authentication State...");
+            Debug.Log($"[Workflow] Exiting {nameof(AuthenticateState)}...");
 
         }
         public async void Execute() {

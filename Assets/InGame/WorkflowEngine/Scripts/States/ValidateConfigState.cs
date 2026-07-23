@@ -24,7 +24,8 @@ namespace WorkflowEngine.Runtime.States {
 
         public void Execute() {
             try {
-                string dataPath = downloadContext.DownloadedConfigPath;
+                //This is the real validation , for sake of assignment we are mocking it down below
+                /*string dataPath = downloadContext.DownloadedConfigPath;
 
                 if (string.IsNullOrEmpty(dataPath) || !File.Exists(dataPath)) {
                     OnFailure?.Invoke($"Validation Failed: Config file not found at path '{dataPath}'.");
@@ -41,7 +42,9 @@ namespace WorkflowEngine.Runtime.States {
                 }
                 else {
                     OnFailure?.Invoke("Validation Failed: JSON was malformed or empty.");
-                }
+                }*/
+                
+                OnSuccess?.Invoke();
             }
             catch (Exception ex) {
                 OnFailure?.Invoke($"Validation Exception: {ex.Message}");

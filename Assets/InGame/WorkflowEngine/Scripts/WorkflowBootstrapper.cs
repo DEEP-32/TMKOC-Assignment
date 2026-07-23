@@ -64,7 +64,7 @@ namespace WorkflowEngine.Runtime {
         }
 
         void OnDestroy() {
-            workFlowEngine.FreeResources();
+            workFlowEngine?.FreeResources();
             workFlowEngine = null;
         }
     }
