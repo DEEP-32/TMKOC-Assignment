@@ -1,4 +1,4 @@
-﻿namespace WorkFlowEngine.Runtime {
+﻿namespace WorkflowEngine.Runtime.States {
     public interface IWorkFlowState {
         void OnEnter();
         void OnExit();
@@ -6,13 +6,5 @@
         
         event System.Action OnSuccess;
         event System.Action<string> OnFailure;
-    }
-
-    public interface IWorkFlowEngine {
-        
-    }
-    
-    public interface IWorkFlowStateFactory {
-        IWorkFlowState Create(string className);
     }
 }
