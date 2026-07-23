@@ -19,7 +19,7 @@ namespace WorkflowEngine.Runtime.Factory {
                 {nameof(DownloadConfigState), () => new DownloadConfigState(configService, sharedContext) },
                 {nameof(ValidateConfigState), () => new ValidateConfigState((IDownloadContext)sharedContext,(IValidateContext)sharedContext) },
                 { nameof(InitializeGameServices), () => new InitializeGameServices(sharedContext) },
-                // { nameof(ReadyState), () => new ReadyState() }
+                { nameof(ReadyState), () => new ReadyState() }
             };
         }
 

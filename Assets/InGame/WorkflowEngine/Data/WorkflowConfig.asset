@@ -21,3 +21,5 @@ MonoBehaviour:
     maxRetries: 1
   - stateClassName: InitializeGameServices
     maxRetries: 0
+  - stateClassName: ReadyState
+    maxRetries: 0
