@@ -17,7 +17,7 @@ namespace WorkFlowEngine.Runtime.Data {
         public int maxRetries = 0; 
     }
     
-    [CreateAssetMenu(fileName = "NewWorkflow", menuName = "Workflow/Definition", order = 0)]
+    [CreateAssetMenu(fileName = "WorkflowConfig", menuName = "Workflow/Definition", order = 0)]
     public class WorkFlowDefinition : ScriptableObject,IWorkFlowDefinition {
         [SerializeField] List<WorkflowStepConfig> workflowStates;
         public IReadOnlyList<WorkflowStepConfig> States => workflowStates;
