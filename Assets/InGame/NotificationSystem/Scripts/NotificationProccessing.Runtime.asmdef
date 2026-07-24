@@ -1,7 +1,9 @@
 {
     "name": "NotificationSystem.Runtime",
     "rootNamespace": "NotificationSystem.Runtime",
-    "references": [],
+    "references": [
+        "GUID:c82e58b0f342ccd4b86d7e4822c41dc5"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
