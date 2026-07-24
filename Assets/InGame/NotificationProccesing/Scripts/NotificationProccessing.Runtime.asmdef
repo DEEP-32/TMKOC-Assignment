@@ -1,6 +1,6 @@
 {
-    "name": "NotificationProccessing.Runtime",
-    "rootNamespace": "NotificationProccessing.Runtime",
+    "name": "NotificationSystem.Runtime",
+    "rootNamespace": "NotificationSystem.Runtime",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
