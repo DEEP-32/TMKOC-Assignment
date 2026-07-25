@@ -12,10 +12,8 @@ namespace NotificationSystem.Runtime.UI {
 
         public void Init(IReadOnlyList<PipelineConfigEntry> config) {
             foreach (var pipelineConfigEntry in config) {
-                string pipelineType = pipelineConfigEntry.Type;
-                
                 var button = Instantiate(buttonPrefab, container);
-                button.GetComponentInChildren<TMP_Text>().text = pipelineType.ToShortClassName();
+                button.GetComponentInChildren<TMP_Text>().text = pipelineConfigEntry.Name;
             }
         }
     }

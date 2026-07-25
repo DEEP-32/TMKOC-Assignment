@@ -15,6 +15,7 @@ MonoBehaviour:
   pipelines:
   - Type: NotificationSystem.Runtime.Core.EmailNotificationPipeline, NotificationSystem.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    <Name>k__BackingField: Email
     <Validator>k__BackingField: {fileID: 0}
     <Delivery>k__BackingField: {fileID: 0}
     <Formatter>k__BackingField: {fileID: 0}

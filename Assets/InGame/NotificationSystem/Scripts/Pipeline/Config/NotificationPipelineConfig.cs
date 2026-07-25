@@ -11,6 +11,8 @@ namespace NotificationSystem.Runtime.Pipeline.Config {
         [TypeDropdown(typeof(INotificationPipeline))]
         public string Type;
         
+        [field:SerializeField] public string Name {get; private set;}
+        
         [field : SerializeField] public  BaseNotificationValidator Validator { get; private set; }
         [field : SerializeField] public  BaseNotificationDelivery Delivery { get; private set; }
         [field : SerializeField] public  BaseNotificationFormatter Formatter { get; private set; }
