@@ -5,41 +5,40 @@ using UnityEngine;
 
 namespace TMKOC.Utils.Editor {
     [CustomPropertyDrawer(typeof(TypeDropdownAttribute))]
-    public class TypeDropdownDrawer : PropertyDrawer 
-    {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) 
-        {
-            // Enforce that this attribute is only applied to string variables
-            if (property.propertyType != SerializedPropertyType.String) 
-            {
+    public class TypeDropdownDrawer : PropertyDrawer {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
+            if (property.propertyType != SerializedPropertyType.String) {
                 EditorGUI.LabelField(position, label.text, "Use [TypeDropdown] with strings.");
                 return;
             }
 
             TypeDropdownAttribute typeDropdownAttribute = (TypeDropdownAttribute)attribute;
-            
-            // Fast lookup of all concrete classes implementing the interface
+
             var typeCollection = TypeCache.GetTypesDerivedFrom(typeDropdownAttribute.BaseType)
                 .Where(t => !t.IsAbstract && !t.IsInterface)
                 .ToList();
 
-            List<string> typeNames = typeCollection.Select(t => t.Name).ToList();
-
-            if (typeNames.Count == 0) 
-            {
+            if (typeCollection.Count == 0) {
                 EditorGUI.LabelField(position, label.text, "No valid types found");
                 return;
             }
 
-            // Match the currently saved string to the dropdown index
-            int currentIndex = typeNames.IndexOf(property.stringValue);
-            if (currentIndex < 0) currentIndex = 0; 
+            // 1. Array of SHORT names for the Inspector UI ("SuperShooter")
+            string[] displayNames = typeCollection.Select(t => t.Name).ToArray();
 
-            // Draw the dropdown
-            int newIndex = EditorGUI.Popup(position, label.text, currentIndex, typeNames.ToArray());
+            // 2. List of ASSEMBLY QUALIFIED names to actually save
+            // This guarantees Type.GetType() works across any .asmdef boundary
+            List<string> qualifiedNames = typeCollection.Select(t => t.AssemblyQualifiedName).ToList();
 
-            // Save the newly selected string back to the SerializedProperty
-            property.stringValue = typeNames[newIndex];
+            // Find the index of the currently saved qualified name
+            int currentIndex = qualifiedNames.IndexOf(property.stringValue);
+            if (currentIndex < 0) currentIndex = 0;
+
+            // Draw the dropdown using the SHORT names
+            int newIndex = EditorGUI.Popup(position, label.text, currentIndex, displayNames);
+
+            // 3. Save the ASSEMBLY QUALIFIED name back to the string property
+            property.stringValue = qualifiedNames[newIndex];
         }
     }
 }

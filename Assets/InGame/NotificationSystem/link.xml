@@ -1,0 +1,3 @@
+﻿<linker>
+    <assembly fullname="NotificationSystem.Runtime" preserve="all"/>
+</linker>
