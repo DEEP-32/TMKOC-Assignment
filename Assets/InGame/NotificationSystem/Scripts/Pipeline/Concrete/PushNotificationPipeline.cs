@@ -54,7 +54,8 @@ namespace NotificationSystem.Runtime.Pipeline.Concrete {
             
             metadata = new Dictionary<string, object> {
                 { BadgeCountKey, 1 },
-                { PlaySoundKey, true }
+                { PlaySoundKey, true },
+                { DeviceTokenKey, "mock_token" }
             };
             
             return metadata;

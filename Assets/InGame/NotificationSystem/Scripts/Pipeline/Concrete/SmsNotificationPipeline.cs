@@ -50,7 +50,8 @@ namespace NotificationSystem.Runtime.Pipeline.Concrete {
             if(metadata != null) return metadata;
             
             metadata = new Dictionary<string, object> {
-                { CountryCodeKey, "+1" } // Default to US/Canada, for example
+                { CountryCodeKey, "+1" }, // Default to US/Canada, for example
+                { PhoneNumberKey , "1234567890" }
             };
             
             return metadata;

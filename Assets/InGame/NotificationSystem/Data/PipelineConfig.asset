@@ -13,9 +13,33 @@ MonoBehaviour:
   m_Name: PipelineConfig
   m_EditorClassIdentifier: NotificationSystem.Runtime::NotificationSystem.Runtime.Pipeline.Config.NotificationPipelineConfig
   pipelines:
-  - Type: NotificationSystem.Runtime.Core.EmailNotificationPipeline, NotificationSystem.Runtime,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Type: NotificationSystem.Runtime.Pipeline.Concrete.EmailNotificationPipeline,
+      NotificationSystem.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     <Name>k__BackingField: Email
     <Validator>k__BackingField: {fileID: 11400000, guid: 7ea4c620d092750438162c7f536eecc1, type: 2}
     <Delivery>k__BackingField: {fileID: 11400000, guid: 2262065f2321d7942aa3a4f00ae7f6df, type: 2}
     <Formatter>k__BackingField: {fileID: 11400000, guid: 538f492d6a49a8741b15278cf2047157, type: 2}
+  - Type: NotificationSystem.Runtime.Pipeline.Concrete.SmsNotificationPipeline, NotificationSystem.Runtime,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    <Name>k__BackingField: SMS
+    <Validator>k__BackingField: {fileID: 11400000, guid: 78c18dfb79736f04ba521e882d0c47db, type: 2}
+    <Delivery>k__BackingField: {fileID: 11400000, guid: 7476dea5a1e80bf4099563ad6eb6860e, type: 2}
+    <Formatter>k__BackingField: {fileID: 11400000, guid: 8a1738c369c59884081338cf34a0798b, type: 2}
+  - Type: NotificationSystem.Runtime.Pipeline.Concrete.PushNotificationPipeline,
+      NotificationSystem.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    <Name>k__BackingField: Push
+    <Validator>k__BackingField: {fileID: 11400000, guid: c3731542baf9ee64597c226cc2225904, type: 2}
+    <Delivery>k__BackingField: {fileID: 11400000, guid: f1fb629e03baa254e928d81d2655259e, type: 2}
+    <Formatter>k__BackingField: {fileID: 11400000, guid: d64c24cde51ba0d4aae101000cfe75a1, type: 2}
+  - Type: NotificationSystem.Runtime.Pipeline.Concrete.InAppNotificationPipeline,
+      NotificationSystem.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    <Name>k__BackingField: InApp
+    <Validator>k__BackingField: {fileID: 11400000, guid: e09f1576628945f47a5939bf3a36fa0e, type: 2}
+    <Delivery>k__BackingField: {fileID: 11400000, guid: dd30169ab3e28ac40b0c5a68183cbd75, type: 2}
+    <Formatter>k__BackingField: {fileID: 11400000, guid: 4b3fe26d3e688f0449c2e12855321884, type: 2}
+  - Type: NotificationSystem.Runtime.Pipeline.Concrete.SlackNotificationPipeline,
+      NotificationSystem.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    <Name>k__BackingField: Slack
+    <Validator>k__BackingField: {fileID: 11400000, guid: 13a4701921b9507458583bb6d959aca6, type: 2}
+    <Delivery>k__BackingField: {fileID: 11400000, guid: 1934ae717affe1e408fb39abaa0fc516, type: 2}
+    <Formatter>k__BackingField: {fileID: 11400000, guid: 99243d34c23b2304492a3a41183c53d2, type: 2}
