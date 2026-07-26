@@ -32,7 +32,7 @@ namespace NotificationSystem.Runtime.Core {
     }
     
     public interface INotificationHistoryLogger {
-        void ReadHistoryAsync(List<HistoryLogEntry> history);
+        void LogHistory();
     }
 
     public abstract class BaseNotificationValidator : ScriptableObject, INotificationValidator {

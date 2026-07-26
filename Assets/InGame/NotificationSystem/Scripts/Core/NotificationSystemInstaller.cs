@@ -2,6 +2,7 @@
 using UnityEngine;
 using NotificationSystem.Runtime.Factory;
 using NotificationSystem.Runtime.Pipeline.Config;
+using NotificationSystem.Runtime.Pipeline.Logging;
 using NotificationSystem.Runtime.UI;
 using TMKOC.Utils;
 
@@ -14,6 +15,8 @@ namespace NotificationSystem.Runtime.Core {
         
         [Header("View (UI)")]
         [SerializeField] private NotificationDemoUI demoUI;
+        
+        [SerializeField] JsonHistoryLogger historyLogger;
         
         private NotificationController controller;
 
@@ -32,7 +35,7 @@ namespace NotificationSystem.Runtime.Core {
                 controllerObject.transform.SetParent(transform);
             }
 
-            controller.Init(pipelineConfig, demoUI, factory);
+            controller.Init(pipelineConfig, demoUI, factory,historyLogger);
         }
     }
 }

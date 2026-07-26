@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq; // Added for FirstOrDefault lookup
+using System.Linq;
 using NotificationSystem.Runtime.Factory;
 using NotificationSystem.Runtime.Pipeline.Config;
+using NotificationSystem.Runtime.Pipeline.Logging;
 using NotificationSystem.Runtime.UI;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace NotificationSystem.Runtime.Controller {
         NotificationPipelineConfig modelConfig;
         NotificationDemoUI view;
         INotificationPipelineFactory factory;
+        JsonHistoryLogger logger;
         
         // Controller State
         List<NotificationRequest> scheduledRequests;
@@ -23,17 +25,20 @@ namespace NotificationSystem.Runtime.Controller {
         public void Init(
             NotificationPipelineConfig modelConfig, 
             NotificationDemoUI view, 
-            INotificationPipelineFactory factory) 
+            INotificationPipelineFactory factory,
+            JsonHistoryLogger logger) 
         {
             this.modelConfig = modelConfig;
             this.view = view;
             this.factory = factory;
+            this.logger = logger;
             
             scheduledRequests = new List<NotificationRequest>();
 
             // Bind the View
             this.view.Init(this.modelConfig.Pipelines);
             this.view.TriggerPipeline += OnViewTriggeredPipeline;
+            view.HistoryButton.onClick.AddListener(OnHistoryButtonClicked);
         }
 
         private void OnViewTriggeredPipeline(string pipelineType) {
@@ -81,7 +86,12 @@ namespace NotificationSystem.Runtime.Controller {
         private void OnDestroy() {
             if (view != null) {
                 view.TriggerPipeline -= OnViewTriggeredPipeline;
+                view.HistoryButton.onClick.RemoveListener(OnHistoryButtonClicked);
             }
+        }
+
+        void OnHistoryButtonClicked() {
+            logger.LogHistory();
         }
     }
 }

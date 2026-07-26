@@ -24,7 +24,7 @@ namespace NotificationSystem.Runtime.Pipeline.Logging {
             HistoryLogEntry BuildLogEntry() {
                 return new HistoryLogEntry {
                     Timestamp = DateTime.Now.ToString("G"),
-                    PipelineType = request.Type,
+                    PipelineType = request.Name,
                     Status = wasSuccessful ? "SUCCESS" : "FAILED",
                     Message = message,
                     MetaData = request.MetaData
@@ -81,12 +81,14 @@ namespace NotificationSystem.Runtime.Pipeline.Logging {
         }
     
 
-        public void ReadHistoryAsync(List<HistoryLogEntry> history) {
+        public async void LogHistory() {
+            var history = await ReadHistoryAsync();
             for (var i = 0; i < history.Count; i++) {
                 var currentEntry = history[i];
                 Debug.Log($"{currentEntry.ToString()}");
             }
         }
+
     }
     
 }

@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using NotificationSystem.Runtime.Pipeline.Config;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace NotificationSystem.Runtime.UI {
     public class NotificationDemoUI : MonoBehaviour {
+        [field:SerializeField] public Button HistoryButton { get;private set; }
         [SerializeField] PipelineTrigger tiggerPrefab;
         [SerializeField] Transform container;
         
