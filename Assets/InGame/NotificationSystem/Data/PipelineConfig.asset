@@ -16,6 +16,6 @@ MonoBehaviour:
   - Type: NotificationSystem.Runtime.Core.EmailNotificationPipeline, NotificationSystem.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     <Name>k__BackingField: Email
-    <Validator>k__BackingField: {fileID: 0}
-    <Delivery>k__BackingField: {fileID: 0}
-    <Formatter>k__BackingField: {fileID: 0}
+    <Validator>k__BackingField: {fileID: 11400000, guid: 7ea4c620d092750438162c7f536eecc1, type: 2}
+    <Delivery>k__BackingField: {fileID: 11400000, guid: 2262065f2321d7942aa3a4f00ae7f6df, type: 2}
+    <Formatter>k__BackingField: {fileID: 11400000, guid: 538f492d6a49a8741b15278cf2047157, type: 2}

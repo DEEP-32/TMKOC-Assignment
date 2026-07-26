@@ -5,6 +5,12 @@ using UnityEngine;
 
 namespace NotificationSystem.Runtime.Core {
     public class EmailNotificationPipeline : INotificationPipeline {
+        
+        public const string EmailKey = "email";
+        
+        public event Action<INotificationPipeline> onStarted;
+        public event Action<INotificationPipeline, bool> onCompleted;
+        
         INotificationDelivery delivery;
         INotificationValidator validator;
         INotificationFormatted formatter;
@@ -25,7 +31,7 @@ namespace NotificationSystem.Runtime.Core {
             }
             
             metadata = new Dictionary<string, object> {
-                {"pipelineId", "email"},
+                {EmailKey, "mock@123.com"},
             };
             
             return metadata;
@@ -34,6 +40,11 @@ namespace NotificationSystem.Runtime.Core {
         public INotificationDelivery Delivery => delivery;
         public INotificationValidator Validator => validator;
         public INotificationFormatted Formatter => formatter;
+
+        public void RemoveBinding() {
+            onStarted = null;
+            onCompleted = null;
+        }
 
 
         public async Task<bool> StartNotificationPipeline(NotificationRequest request) {
@@ -46,7 +57,8 @@ namespace NotificationSystem.Runtime.Core {
 
                 string formattedMessage = formatter.Format(request);
                 await delivery.Send(formattedMessage, request);
-
+                
+                Debug.Log("[EmailPipeline] Pipeline completed successfully");
                 return true;
             }
             catch (Exception ex) {

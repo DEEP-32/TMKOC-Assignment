@@ -11,6 +11,8 @@ namespace NotificationSystem.Runtime.Core {
         INotificationDelivery Delivery { get; }
         INotificationValidator Validator { get; }
         INotificationFormatted Formatter { get; }
+
+        void RemoveBinding();
     }
 
     public interface INotificationValidator {
@@ -26,9 +28,7 @@ namespace NotificationSystem.Runtime.Core {
     }
 
     public abstract class BaseNotificationValidator : ScriptableObject, INotificationValidator {
-        public Task<bool> Validate(in NotificationRequest request) {
-            return Task.FromResult(true);
-        }
+        public abstract Task<bool> Validate(in NotificationRequest request);
     }
     
     public abstract class BaseNotificationFormatter : ScriptableObject, INotificationFormatted {

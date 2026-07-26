@@ -34,7 +34,6 @@ namespace NotificationSystem.Runtime.Core {
             var notificationRequest = new NotificationRequest(pipelineType, DummyMessage, null, metaData);
             
             var res = newPipeline.StartNotificationPipeline(notificationRequest);
-
             //newPipeline.StartNotificationPipeline();
             //Debug.Log($"[Notification] Triggering pipeline {pipelineId} is new pipeline null : {newPipeline == null}");
         }
