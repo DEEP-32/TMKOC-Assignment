@@ -16,6 +16,7 @@ namespace NotificationSystem.Runtime.Pipeline.Config {
         [field : SerializeField] public  BaseNotificationValidator Validator { get; private set; }
         [field : SerializeField] public  BaseNotificationDelivery Delivery { get; private set; }
         [field : SerializeField] public  BaseNotificationFormatter Formatter { get; private set; }
+        [field: SerializeField] public BaseNotificationLogger Logger { get; private set; } 
         
     }
     

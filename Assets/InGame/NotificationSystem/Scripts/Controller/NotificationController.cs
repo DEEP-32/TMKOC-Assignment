@@ -44,17 +44,11 @@ namespace NotificationSystem.Runtime.Controller {
                 return;
             }
 
-            // 1. Fetch the config entry using the pipelineType
             var configEntry = modelConfig.Pipelines.FirstOrDefault(p => p.Type == pipelineType);
-            
-            // 2. Safely extract the name (fallback to the Type string if Name is empty)
-            string pipelineName = configEntry != null && !string.IsNullOrEmpty(configEntry.Name) 
-                ? configEntry.Name 
-                : pipelineType;
-
+            string pipelineName = configEntry.Name;
             DateTime scheduledTime = DateTime.Now.AddSeconds(3); // 3-second delay
             var metaData = pipeline.CreatePipelineMetadata();
-            var request = new NotificationRequest(pipelineType, DummyMessage, scheduledTime, metaData);
+            var request = new NotificationRequest(pipelineType,pipelineName,DummyMessage, scheduledTime, metaData);
 
             if (scheduledTime <= DateTime.Now) {
                 _ = pipeline.StartNotificationPipeline(request);

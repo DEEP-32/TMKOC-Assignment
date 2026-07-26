@@ -8,54 +8,69 @@ namespace NotificationSystem.Runtime.Pipeline.Concrete {
     public class InAppNotificationPipeline : INotificationPipeline {
         public const string DisplayDurationKey = "DisplayDuration";
         public const string UILayerPriorityKey = "UILayerPriority";
-        
+
         Dictionary<string, object> metadata = null;
-        
+
         INotificationDelivery delivery;
         INotificationValidator validator;
         INotificationFormatted formatter;
-        
+        INotificationLogger logger;
+
         public INotificationDelivery Delivery => delivery;
+
         public INotificationValidator Validator => validator;
+
         public INotificationFormatted Formatter => formatter;
-        
+
+        public INotificationLogger Logger => logger;
+
         public InAppNotificationPipeline(
-            INotificationDelivery delivery, 
-            INotificationValidator validator, 
-            INotificationFormatted formatter) 
-        {
+            INotificationDelivery delivery,
+            INotificationValidator validator,
+            INotificationFormatted formatter,
+            INotificationLogger logger) {
             this.delivery = delivery;
             this.validator = validator;
             this.formatter = formatter;
+            this.logger = logger;
         }
-        
+
         public async Task<bool> StartNotificationPipeline(NotificationRequest request) {
+            bool success = false;
+            string statusMessage = "";
+
             try {
                 if (!await validator.Validate(request)) {
-                    Debug.LogError("[InAppPipeline] Invalid UI payload.");
+                    statusMessage = "Validation failed (Empty UI Message Payload)";
                     return false;
                 }
 
                 string formattedMessage = formatter.Format(request);
-                
-                // For In-App, the 'Send' method likely just instantiates a prefab or triggers an event
-                await delivery.Send(formattedMessage, request); 
+                await delivery.Send(formattedMessage, request);
+
+                success = true;
+                statusMessage = "In-App UI Banner instantiated successfully";
                 return true;
             }
             catch (Exception ex) {
-                Debug.LogError($"[InAppPipeline] UI rendering failed: {ex.Message}");
+                statusMessage = $"UI Rendering Exception: {ex.Message}";
                 return false;
+            }
+            finally {
+                if (logger != null) {
+                    await logger.Log(request, success, statusMessage);
+                }
             }
         }
 
         public Dictionary<string, object> CreatePipelineMetadata() {
-            if(metadata != null) return metadata;
-            
+            if (metadata != null) return metadata;
+
             metadata = new Dictionary<string, object> {
                 { DisplayDurationKey, 3.5f }, // 3.5 seconds
                 { UILayerPriorityKey, "Overlay" }
             };
-            
+
             return metadata;
         }
     }

@@ -21,7 +21,8 @@ namespace NotificationSystem.Runtime.Factory {
                             targetType,
                             pipelineConfigEntry.Delivery,
                             pipelineConfigEntry.Validator,
-                            pipelineConfigEntry.Formatter
+                            pipelineConfigEntry.Formatter,
+                            pipelineConfigEntry.Logger
                         ) as INotificationPipeline;
                 }
                 else {

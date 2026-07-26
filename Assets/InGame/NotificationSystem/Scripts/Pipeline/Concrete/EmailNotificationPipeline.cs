@@ -11,6 +11,7 @@ namespace NotificationSystem.Runtime.Pipeline.Concrete {
         INotificationDelivery delivery;
         INotificationValidator validator;
         INotificationFormatted formatter;
+        INotificationLogger logger;
 
         Dictionary<string, object> metadata = null;
 
@@ -20,32 +21,44 @@ namespace NotificationSystem.Runtime.Pipeline.Concrete {
 
         public INotificationFormatted Formatter => formatter;
 
+        public INotificationLogger Logger => logger;
+
         public EmailNotificationPipeline(
             INotificationDelivery delivery,
             INotificationValidator validator,
-            INotificationFormatted formatter) {
+            INotificationFormatted formatter,
+            INotificationLogger logger) {
             this.delivery = delivery;
             this.validator = validator;
             this.formatter = formatter;
+            this.logger = logger;
         }
 
         public async Task<bool> StartNotificationPipeline(NotificationRequest request) {
+            bool success = false;
+            string statusMessage = "";
+
             try {
-                bool isValid = await validator.Validate(request);
-                if (!isValid) {
-                    Debug.LogError("[EmailPipeline] Invalid email address or missing payload. Aborting delivery.");
+                if (!await validator.Validate(request)) {
+                    statusMessage = "Validation failed (Missing/Invalid Email Address)";
                     return false;
                 }
 
                 string formattedMessage = formatter.Format(request);
                 await delivery.Send(formattedMessage, request);
 
-                Debug.Log("[EmailPipeline] Pipeline completed successfully.");
+                success = true;
+                statusMessage = "Email delivered successfully";
                 return true;
             }
             catch (Exception ex) {
-                Debug.LogError($"[EmailPipeline] Critical pipeline failure: {ex.Message}");
+                statusMessage = $"SMTP Exception: {ex.Message}";
                 return false;
+            }
+            finally {
+                if (logger != null) {
+                    await logger.Log(request, success, statusMessage);
+                }
             }
         }
 
