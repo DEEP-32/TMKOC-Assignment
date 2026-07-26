@@ -653,7 +653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961ebbc8bc301414cba5817b59d8a547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NotificationSystem.Runtime::NotificationSystem.Runtime.UI.NotificationDemoUI
-  buttonPrefab: {fileID: 7710832423237871701, guid: 85894424d32a3a346aad3fa51d26f452, type: 3}
+  tiggerPrefab: {fileID: 6449987574470692102, guid: 85894424d32a3a346aad3fa51d26f452, type: 3}
   container: {fileID: 1694899385}
 --- !u!1 &832575517
 GameObject:

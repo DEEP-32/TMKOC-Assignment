@@ -1,20 +1,43 @@
+using System;
 using System.Collections.Generic;
-using NotificationSystem.Runtime.Extensions;
 using NotificationSystem.Runtime.Pipeline.Config;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace NotificationSystem.Runtime.UI {
     public class NotificationDemoUI : MonoBehaviour {
-        [SerializeField] Button buttonPrefab;
+        [SerializeField] PipelineTrigger tiggerPrefab;
         [SerializeField] Transform container;
+        
+        List<PipelineTrigger> pipelineTriggers;
+
+        public Action<string> TriggerPipeline;
+        
 
         public void Init(IReadOnlyList<PipelineConfigEntry> config) {
-            foreach (var pipelineConfigEntry in config) {
-                var button = Instantiate(buttonPrefab, container);
-                button.GetComponentInChildren<TMP_Text>().text = pipelineConfigEntry.Name;
+            pipelineTriggers = new List<PipelineTrigger>(config.Count);
+            for (var i = 0; i < config.Count; i++) {
+                var pipelineConfigEntry = config[i];
+                var trigger = Instantiate(tiggerPrefab, container);
+                trigger.Init(pipelineConfigEntry.Type,pipelineConfigEntry.Name,i,OnPipelineTrigger);
+                
+                pipelineTriggers.Add(trigger);
             }
+
+            
+        }
+        
+        void OnPipelineTrigger(int index) {
+            var pipelineId = pipelineTriggers[index].PipelineId;
+            TriggerPipeline?.Invoke(pipelineId);
+            
+        }
+        
+        void OnDestroy() {
+            foreach (var trigger in pipelineTriggers) {
+                trigger.Button.onClick.RemoveAllListeners();
+            }
+            
+            pipelineTriggers.Clear();
         }
     }
 }

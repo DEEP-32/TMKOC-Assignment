@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3219169223778969705}
   - component: {fileID: 3651774415465515594}
   - component: {fileID: 7710832423237871701}
+  - component: {fileID: 6449987574470692102}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -121,6 +122,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6449987574470692102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4918396281358165138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0ef6ae6cde4c44aa76dcd992cac11b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NotificationSystem.Runtime::NotificationSystem.Runtime.UI.PipelineTrigger
 --- !u!1 &7705946994746338872
 GameObject:
   m_ObjectHideFlags: 0

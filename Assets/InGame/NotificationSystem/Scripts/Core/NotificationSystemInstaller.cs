@@ -15,7 +15,19 @@ namespace NotificationSystem.Runtime.Core {
         void Awake() {
             Init();
             demoUI.Init(pipelineConfig.Pipelines);
-            //factory.CreatePipeline("EmailPipeline");
+        }
+
+        void Start() {
+            demoUI.TriggerPipeline += TriggerPipeline;
+        }
+
+        void OnDestroy() {
+            demoUI.TriggerPipeline -= TriggerPipeline;
+        }
+
+        void TriggerPipeline(string pipelineId) {
+            var newPipeline = factory.CreatePipeline(pipelineId);
+            Debug.Log($"[Notification] Triggering pipeline {pipelineId} is new pipeline null : {newPipeline == null}");
         }
 
         void Init() {
