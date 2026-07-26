@@ -25,6 +25,11 @@ The architecture follows a strict **Model-View-Controller (MVC)** design paired 
 *   **I - Interface Segregation Principle:** Interfaces are kept small and specific (`INotificationValidator`, `INotificationDelivery`, etc.) rather than having one massive `INotification` interface that forces unused methods on concrete classes.
 *   **D - Dependency Inversion Principle:** Concrete pipelines rely on abstractions (interfaces) rather than concrete implementations. The Factory injects these dependencies into the pipelines at runtime.
 
+## 🚀 Future Improvements & Optimizations
+While the current architecture strictly adheres to clean software design, scaling this for a live-ops production game would benefit from:
+*   **Object Pooling (Memory Optimization):** Currently, the UI instantiates new notification banner prefabs, and the engine creates new `NotificationRequest` objects on the fly. Implementing Object Pooling (via `UnityEngine.Pool`) for these recurring elements would eliminate runtime memory allocations and prevent frame-stuttering Garbage Collection (GC) spikes during heavy notification bursts.
+*   **Zero-Allocation String Formatting:** The JSON logging and history systems currently rely on standard C# string interpolation. Switching to a pooled `StringBuilder` (or a library like ZString) would prevent string memory allocations during heavy background disk-writing operations.
+
 ## 🚀 How to Add a New Notification Type
 Adding a new notification channel requires **zero modifications to existing classes**:
 1. Create a new class implementing `INotificationPipeline`.

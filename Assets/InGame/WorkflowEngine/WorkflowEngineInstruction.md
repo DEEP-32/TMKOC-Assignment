@@ -23,6 +23,11 @@ The architecture achieves low coupling and high cohesion by dividing the system 
 *   **I - Interface Segregation Principle:** The shared runtime data context is divided into highly specific interfaces. States are injected only with the exact interface they require, adhering to the Principle of Least Privilege.
 *   **D - Dependency Inversion Principle:** High-level modules do not depend on low-level implementations. States depend entirely on service interfaces, and the Factory injects mock or concrete implementations at runtime.
 
+## 🚀 Future Improvements & Optimizations
+While the current architecture is robust, scaling this to a massive production environment would benefit from:
+*   **Object Pooling:** Instead of instantiating new State objects or Context wrappers every time a workflow runs, utilizing `UnityEngine.Pool` would eliminate runtime memory allocations and prevent Garbage Collection (GC) spikes during high-frequency workflow triggers.
+*   **Advanced Dependency Injection (DI):** The project currently uses manual Dependency Injection via the Factory pattern. Upgrading to a lightweight DI framework (like **VContainer** or **Zenject**) would further automate dependency resolution as the engine grows in complexity.
+
 ## 🎮 Run Instructions
 1. Open the Unity Project and load the **Task 1** scene.
 2. In the Project window, locate the **Workflow Definition** ScriptableObject to inspect how the workflow sequence (Start → Authenticate User → Download Configuration → Validate Configuration → Initialize Services → Ready) and retry mechanisms are configured.
