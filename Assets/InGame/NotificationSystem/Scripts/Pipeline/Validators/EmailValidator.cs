@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using NotificationSystem.Runtime.Core;
+using NotificationSystem.Runtime.Pipeline.Concrete;
 using UnityEngine;
 
 namespace NotificationSystem.Runtime.Pipeline.Validators {

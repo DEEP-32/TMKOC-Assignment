@@ -11,8 +11,6 @@ namespace NotificationSystem.Runtime.Core {
         INotificationDelivery Delivery { get; }
         INotificationValidator Validator { get; }
         INotificationFormatted Formatter { get; }
-
-        void RemoveBinding();
     }
 
     public interface INotificationValidator {

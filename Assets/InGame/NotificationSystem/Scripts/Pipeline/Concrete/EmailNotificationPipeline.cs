@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NotificationSystem.Runtime.Core;
 using UnityEngine;
 
-namespace NotificationSystem.Runtime.Core {
+namespace NotificationSystem.Runtime.Pipeline.Concrete {
     public class EmailNotificationPipeline : INotificationPipeline {
         
         public const string EmailKey = "email";
         
-        public event Action<INotificationPipeline> onStarted;
-        public event Action<INotificationPipeline, bool> onCompleted;
         
         INotificationDelivery delivery;
         INotificationValidator validator;
@@ -40,11 +39,6 @@ namespace NotificationSystem.Runtime.Core {
         public INotificationDelivery Delivery => delivery;
         public INotificationValidator Validator => validator;
         public INotificationFormatted Formatter => formatter;
-
-        public void RemoveBinding() {
-            onStarted = null;
-            onCompleted = null;
-        }
 
 
         public async Task<bool> StartNotificationPipeline(NotificationRequest request) {
