@@ -9,7 +9,9 @@ namespace NotificationSystem.Runtime.Core {
     public class NotificationSystemInstaller : MonoBehaviour {
         [InlineEditor,SerializeField] NotificationPipelineConfig pipelineConfig;
         [SerializeField] NotificationDemoUI demoUI;
-        INotificationFactory factory;
+        INotificationPipelineFactory pipelinePipelineFactory;
+        
+        static string DummyMessage = "Hello World";
 
 
         void Awake() {
@@ -25,13 +27,20 @@ namespace NotificationSystem.Runtime.Core {
             demoUI.TriggerPipeline -= TriggerPipeline;
         }
 
-        void TriggerPipeline(string pipelineId) {
-            var newPipeline = factory.CreatePipeline(pipelineId);
-            Debug.Log($"[Notification] Triggering pipeline {pipelineId} is new pipeline null : {newPipeline == null}");
+        void TriggerPipeline(string pipelineType) {
+            var newPipeline = pipelinePipelineFactory.CreatePipeline(pipelineType);
+            var metaData = newPipeline.CreatePipelineMetadata();
+
+            var notificationRequest = new NotificationRequest(pipelineType, DummyMessage, null, metaData);
+            
+            var res = newPipeline.StartNotificationPipeline(notificationRequest);
+
+            //newPipeline.StartNotificationPipeline();
+            //Debug.Log($"[Notification] Triggering pipeline {pipelineId} is new pipeline null : {newPipeline == null}");
         }
 
         void Init() {
-            factory = new NotificationFactory(pipelineConfig.Pipelines);
+            pipelinePipelineFactory = new NotificationPipelineFactory(pipelineConfig.Pipelines);
         }
     }
 }

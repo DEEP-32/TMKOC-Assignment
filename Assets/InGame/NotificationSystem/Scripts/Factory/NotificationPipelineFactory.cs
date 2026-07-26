@@ -5,10 +5,10 @@ using NotificationSystem.Runtime.Core;
 using NotificationSystem.Runtime.Pipeline.Config;
 
 namespace NotificationSystem.Runtime.Factory {
-    public class NotificationFactory : INotificationFactory {
+    public class NotificationPipelineFactory : INotificationPipelineFactory {
         readonly Dictionary<string, Func<INotificationPipeline>> pipelineCreators;
         
-        public NotificationFactory(IReadOnlyList<PipelineConfigEntry> pipelineConfig) {
+        public NotificationPipelineFactory(IReadOnlyList<PipelineConfigEntry> pipelineConfig) {
             pipelineCreators = new Dictionary<string, Func<INotificationPipeline>>();
 
             foreach (var pipelineConfigEntry in pipelineConfig) {
@@ -17,7 +17,12 @@ namespace NotificationSystem.Runtime.Factory {
                 Type targetType = Type.GetType(typeString);
 
                 if (targetType != null) {
-                    pipelineCreators[typeString] = () => Activator.CreateInstance(targetType) as INotificationPipeline;
+                    pipelineCreators[typeString] = () => Activator.CreateInstance(
+                            targetType,
+                            pipelineConfigEntry.Delivery,
+                            pipelineConfigEntry.Validator,
+                            pipelineConfigEntry.Formatter
+                        ) as INotificationPipeline;
                 }
                 else {
                     Debug.LogError($"[NotificationFactory] Could not find Type for: {typeString}");

@@ -1,8 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace NotificationSystem.Runtime.Core {
     public interface INotificationPipeline {
+        Task<bool> StartNotificationPipeline(NotificationRequest request);
+        
+        Dictionary<string, object> CreatePipelineMetadata();
+        
         INotificationDelivery Delivery { get; }
         INotificationValidator Validator { get; }
         INotificationFormatted Formatter { get; }
