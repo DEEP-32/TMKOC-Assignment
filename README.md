@@ -38,9 +38,11 @@ To maintain high cohesion and prevent cross-contamination of code, the project i
 ├── 📁 Task1_WorkflowEngine/
 │   ├── 📄 README.md            # Task 1 Documentation (Architecture, SOLID, Run Instructions)
 │   ├── 📁 Runtime/             # Core Engine, States, and Context
-│   └── 📁 Data/                # Workflow Definitions (ScriptableObjects)
+│   ├── 📁 Data/                # Workflow Definitions (ScriptableObjects)
+│   └── 📁 Scenes/              # Contains the Task 1 demo scene showcasing the workflow
 │
 └── 📁 Task2_NotificationSystem/
     ├── 📄 README.md            # Task 2 Documentation (Pipelines, MVC, Factories)
     ├── 📁 Runtime/             # MVC Core, Delivery, Validation, Formatting, Logging
-    └── 📁 Data/                # Pipeline Configs and Concrete Strategies (ScriptableObjects)
+    ├── 📁 Data/                # Pipeline Configs and Concrete Strategies (ScriptableObjects)
+    └── 📁 Scenes/              # Contains the Task 2 demo scene showcasing notifications
